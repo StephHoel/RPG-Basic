@@ -2,28 +2,22 @@ package com.avanade.rpgbasic.service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
-import com.avanade.rpgbasic.model.CharacterModel;
-import com.avanade.rpgbasic.model.RaceModel;
-
-import com.avanade.rpgbasic.repository.CharacterRepository;
-
 import com.avanade.rpgbasic.exception.InvalidInput;
 import com.avanade.rpgbasic.exception.ResourceNotFound;
-
+import com.avanade.rpgbasic.model.CharacterModel;
+import com.avanade.rpgbasic.model.RaceModel;
+import com.avanade.rpgbasic.repository.CharacterRepository;
 import com.google.gson.Gson;
 
 @Service
@@ -38,7 +32,7 @@ public class CharacterService {
    public CharacterModel create(CharacterModel character) {
       character.setCreatedAt(LocalDateTime.now());
       character.setUpdatedAt(LocalDateTime.now());
-      character.setDeleted(false);
+      character.setIsDeleted(false);
 
       RaceModel raceModel = null;
       String race = character.getRace();
@@ -80,7 +74,6 @@ public class CharacterService {
    }
 
    // read
-   @Query("select * from Parameter p where p.active = 1")
    public List<CharacterModel> findAll() {
       return repository.findAll(false);
    }
@@ -107,7 +100,7 @@ public class CharacterService {
       }
 
       characterModel.setUpdatedAt(LocalDateTime.now());
-      characterModel.setDeleted(true);
+      characterModel.setIsDeleted(true);
       repository.save(characterModel);
    }
 

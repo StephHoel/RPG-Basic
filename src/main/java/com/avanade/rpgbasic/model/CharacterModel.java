@@ -34,7 +34,7 @@ public class CharacterModel implements Serializable {
    private LocalDateTime createdAt;
    @Column(name = "UPDATED_AT", nullable = false)
    private LocalDateTime updatedAt;
-   @Column(name = "DELETED", nullable = false)
-   private Boolean deleted = false;
+   @Column(name = "IS_DELETED", nullable = false)
+   private Boolean isDeleted;
 
 }
