@@ -17,12 +17,18 @@ public class GameService {
    @Autowired
    private GameRepository repository;
 
+   @Autowired
+   private LogService logService;
+
    // create
    public GameModel create(GameModel gameModel) {
       gameModel.setCreatedAt(LocalDateTime.now());
       gameModel.setUpdatedAt(LocalDateTime.now());
       gameModel.setIsDeleted(false);
       gameModel.setIsFinished(false);
+      
+      // Saving LOG
+      logService.logGame(gameModel.getIdGame(), "Create", "Create Game with ID: " + gameModel.getIdGame());
 
       return this.repository.save(gameModel);
    }
@@ -44,6 +50,10 @@ public class GameService {
       }
 
       gameModel.setUpdatedAt(LocalDateTime.now());
+      
+      // Saving LOG
+      logService.logGame(gameModel.getIdGame(), "Update", "Update Game with ID: " + gameModel.getIdGame());
+
       return repository.save(gameModel);
    }
 
@@ -54,6 +64,10 @@ public class GameService {
 
       gameModel.setUpdatedAt(LocalDateTime.now());
       gameModel.setIsFinished(true);
+      
+      // Saving LOG
+      logService.logGame(gameModel.getIdGame(), "Finished", "Finished Game with ID: " + gameModel.getIdGame());
+
       return repository.save(gameModel);
    }
 
@@ -65,6 +79,9 @@ public class GameService {
 
       gameModel.setUpdatedAt(LocalDateTime.now());
       gameModel.setIsDeleted(true);
+      
+      // Saving LOG
+      logService.logGame(gameModel.getIdGame(), "Delete", "Delete Game with ID: " + gameModel.getIdGame());
 
       repository.save(gameModel);
    }
