@@ -24,7 +24,7 @@ import com.google.gson.Gson;
 public class CharacterService {
    @Autowired
    private CharacterRepository repository;
-   
+
    @Autowired
    private LogService logService;
 
@@ -73,9 +73,9 @@ public class CharacterService {
          character.setLife(raceModel.getLifeInitial());
       }
 
-
       // Saving LOG
-      logService.logGame(character.getIdCharacter(), "Create", "Create Character with ID: " + character.getIdCharacter());
+      logService.logGame(character.getIdCharacter(), "Create",
+            "Create Character with ID: " + character.getIdCharacter());
 
       return this.repository.save(character);
    }
@@ -98,9 +98,9 @@ public class CharacterService {
 
       characterModel.setUpdatedAt(LocalDateTime.now());
 
-
       // Saving LOG
-      logService.logGame(characterModel.getIdCharacter(), "Update", "Update Character with ID: " + characterModel.getIdCharacter());
+      logService.logGame(characterModel.getIdCharacter(), "Update",
+            "Update Character with ID: " + characterModel.getIdCharacter());
 
       return repository.save(characterModel);
    }
@@ -114,9 +114,9 @@ public class CharacterService {
       characterModel.setUpdatedAt(LocalDateTime.now());
       characterModel.setIsDeleted(true);
 
-      
       // Saving LOG
-      logService.logGame(characterModel.getIdCharacter(), "Delete", "Delete Character with ID: " + characterModel.getIdCharacter());
+      logService.logGame(characterModel.getIdCharacter(), "Delete",
+            "Delete Character with ID: " + characterModel.getIdCharacter());
 
       repository.save(characterModel);
    }

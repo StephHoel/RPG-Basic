@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.avanade.rpgbasic.exception.InvalidInput;
 import com.avanade.rpgbasic.exception.ResourceNotFound;
+import com.avanade.rpgbasic.model.GameModel;
 import com.avanade.rpgbasic.model.LogModel;
 import com.avanade.rpgbasic.repository.LogRepository;
 
+@Service
 public class LogService {
    @Autowired
    private LogRepository repository;
@@ -73,6 +76,16 @@ public class LogService {
       logModel.setTurn(0);
       logModel.setAction(characterAction);
       logModel.setDescription(characterDescription);
+      create(logModel);
+   }
+
+   public void logDice(UUID idChar, GameModel gameModel, String action, String description) {
+      LogModel logModel = new LogModel();
+      logModel.setIdCharacter(idChar);
+      logModel.setIdGame(gameModel.getIdGame());
+      logModel.setTurn(gameModel.getTurnsTotal());
+      logModel.setAction(action);
+      logModel.setDescription(description);
       create(logModel);
    }
 

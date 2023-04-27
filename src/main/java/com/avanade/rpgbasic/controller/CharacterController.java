@@ -21,6 +21,7 @@ import java.util.UUID;
 @Api(value = "RPG API REST")
 @CrossOrigin(origins = "*")
 public class CharacterController {
+
    @Autowired
    private CharacterService service;
 
@@ -59,5 +60,5 @@ public class CharacterController {
       service.delete(characterModel);
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
    }
-   
+
 }
