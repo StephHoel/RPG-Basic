@@ -1,5 +1,7 @@
 package com.avanade.rpgbasic.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,10 @@ public class RaceService {
    public RaceModel findById(String race) {
       return repository.findById(race)
             .orElseThrow(() -> new RaceNotFound("Race \"" + race + "\" not found"));
+   }
+   
+   public List<RaceModel> findAll() {
+      return repository.findAll();
    }
 
 }
