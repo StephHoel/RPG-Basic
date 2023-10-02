@@ -7,7 +7,6 @@ import java.net.URL;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
@@ -21,8 +20,7 @@ public class DiceService {
    @Autowired
    private LogService logService;
 
-   @Value("${api.url.race}")
-   private String uri;
+   private String uri = "http://localhost:8080/api/race";
 
    public UUID init(GameModel gameModel) {
       int init1, init2;

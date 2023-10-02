@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
@@ -21,15 +20,11 @@ import com.avanade.rpgbasic.repository.CharacterRepository;
 import com.google.gson.Gson;
 
 @Service
-public class CharacterService {
+public class CharacterService extends LogService {
    @Autowired
    private CharacterRepository repository;
 
-   @Autowired
-   private LogService logService;
-
-   @Value("${api.url.race}")
-   private String uri;
+   private String uri = "http://localhost:8080/api/race";
 
    // create
    public CharacterModel create(CharacterModel character) {
@@ -74,7 +69,7 @@ public class CharacterService {
       }
 
       // Saving LOG
-      logService.logGame(character.getIdCharacter(), "Create",
+      logGame(character.getIdCharacter(), "Create",
             "Create Character with ID: " + character.getIdCharacter());
 
       return this.repository.save(character);
@@ -99,7 +94,7 @@ public class CharacterService {
       characterModel.setUpdatedAt(LocalDateTime.now());
 
       // Saving LOG
-      logService.logGame(characterModel.getIdCharacter(), "Update",
+      logGame(characterModel.getIdCharacter(), "Update",
             "Update Character with ID: " + characterModel.getIdCharacter());
 
       return repository.save(characterModel);
@@ -115,7 +110,7 @@ public class CharacterService {
       characterModel.setIsDeleted(true);
 
       // Saving LOG
-      logService.logGame(characterModel.getIdCharacter(), "Delete",
+      logGame(characterModel.getIdCharacter(), "Delete",
             "Delete Character with ID: " + characterModel.getIdCharacter());
 
       repository.save(characterModel);
